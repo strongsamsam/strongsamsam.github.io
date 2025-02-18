@@ -150,22 +150,43 @@
             }
         }
 
+        .question-container {
+            position: absolute;
+            text-align: center;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .button {
+            font-size: 1.5em;
+            background: white;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.2s ease-in-out;
+            margin: 5px;
+        }
+
     </style>
 </head>
 <body>
 
     <!-- Greeting Message -->
     <div class="greeting">
-        Hello Dear Samora ❤️😊
+        Hello Dear Samora ❤️ 😊
     </div>
 
     <div class="emoji-container">
-        <span class="heart">❤️</span>
-        <span class="flower">🌸</span>
-        <span class="smile">😊</span>
-        <span class="star">⭐</span>
-        <span class="sun">☀️</span>
-        <span class="cloud">☁️</span>
+        <span class="heart"> ❤️ </span>
+        <span class="flower"> 🌸 </span>
+        <span class="smile"> 😊 </span>
+        <span class="star"> ⭐ </span>
+        <span class="sun"> ☀️ </span>
+        <span class="cloud"> ☁️ </span>
     </div>
 
     <div class="quote-container">
@@ -173,10 +194,18 @@
     </div>
 
     <!-- Floating Emojis -->
-    <div class="floating-emoji" style="top: 10%; left: 15%;">🌻</div>
-    <div class="floating-emoji" style="top: 25%; left: 30%;">💖</div>
-    <div class="floating-emoji" style="top: 50%; left: 10%;">🎉</div>
-    <div class="floating-emoji" style="top: 70%; left: 80%;">🌟</div>
+    <div class="floating-emoji" style="top: 10%; left: 15%;"> 🌻 </div>
+    <div class="floating-emoji" style="top: 25%; left: 30%;"> 💖 </div>
+    <div class="floating-emoji" style="top: 50%; left: 10%;"> 🎉 </div>
+    <div class="floating-emoji" style="top: 70%; left: 80%;"> 🌟 </div>
+
+    <div class="question-container" id="questionContainer">
+        <p style="font-size: 1.8em; color: white;"> Do you love me ? </p>
+        <div class="buttons">
+            <button id="yesButton" class="button" onclick="showLoveMessage()"> YES </button>
+            <button id="noButton" class="button" onmouseover="moveQuestionContainer()"> NO </button>
+        </div>
+    </div>
 
     <script>
         const quotes = [
@@ -469,6 +498,19 @@
             const randomIndex = Math.floor(Math.random() * quotes.length);
             const quote = quotes[randomIndex];
             document.getElementById("quote").innerText = `"${quote}"`;
+        }
+
+        function showLoveMessage() {
+    document.body.innerHTML = '<h1 style="color: white;">I love you too ❤️</h1>';
+        }
+
+        function moveQuestionContainer() {
+            const container = document.getElementById("questionContainer");
+            const x = Math.random() * (window.innerWidth - container.clientWidth);
+            const y = Math.random() * (window.innerHeight - container.clientHeight);
+            container.style.position = "absolute";
+            container.style.left = `${x}px`;
+            container.style.top = `${y}px`;
         }
 
         // Automatically generate a quote when the page is loaded

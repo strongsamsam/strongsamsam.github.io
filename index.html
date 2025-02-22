@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +73,20 @@
             background: #c82333;
         }
 
-        /* Quote Container */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
         .quote-container {
             background: rgba(0, 0, 0, 0.6);
             padding: 30px;
@@ -80,11 +94,140 @@
             width: 80%;
             max-width: 600px;
             position: relative;
+            overflow: hidden;
         }
 
         .quote {
             font-size: 2em;
             font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .emoji {
+            font-size: 2em;
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .emoji-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 3em;
+        }
+
+        .heart,
+        .flower,
+        .smile,
+        .star,
+        .sun,
+        .cloud {
+            margin: 5px;
+        }
+
+        .heart {
+            color: red;
+        }
+
+        .flower {
+            color: pink;
+        }
+
+        .smile {
+            color: yellow;
+        }
+
+        .star {
+            color: gold;
+        }
+
+        .sun {
+            color: orange;
+        }
+
+        .cloud {
+            color: lightblue;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 3em;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .greeting {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .quote {
+                font-size: 1.5em;
+            }
+
+            .emoji-container {
+                font-size: 2.5em;
+            }
+
+            .greeting {
+                font-size: 2em;
+            }
+
+            .floating-emoji {
+                font-size: 2.5em;
+            }
+
+            .quote-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quote {
+                font-size: 1.2em;
+            }
+
+            .emoji-container {
+                font-size: 2em;
+            }
+
+            .greeting {
+                font-size: 1.8em;
+            }
+
+            .floating-emoji {
+                font-size: 2em;
+            }
+
+            .quote-container {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+
+        .question-container {
+            position: absolute;
+            text-align: center;
         }
 
         /* Maintenance Message */
@@ -95,6 +238,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Custom Popup -->
@@ -104,8 +248,30 @@
         <button class="no-btn" onclick="handleResponse(false)"> Yes </button>
     </div>
 
+
+
+    <div class="emoji-container">
+        <span class="heart"> ❤️ </span>
+        <span class="flower"> 🌸 </span>
+        <span class="smile"> 😊 </span>
+        <span class="star"> ⭐ </span>
+        <span class="sun"> ☀️ </span>
+        <span class="cloud"> ☁️ </span>
+    </div>
+
+
+    <!-- Floating Emojis -->
+    <div class="floating-emoji" style="top: 10%; left: 15%;"> 🌻 </div>
+    <div class="floating-emoji" style="top: 25%; left: 30%;"> 💖 </div>
+    <div class="floating-emoji" style="top: 50%; left: 10%;"> 🎉 </div>
+    <div class="floating-emoji" style="top: 70%; left: 80%;"> 🌟 </div>
+
     <!-- Quotes Section -->
     <div id="quoteSection" class="hidden">
+        <!-- Greeting Message -->
+        <div class="greeting">
+            Hello Dear Samora ❤️ 😊
+        </div>
         <div class="quote-container">
             <div class="quote" id="quote"> Loading... </div>
         </div>
@@ -124,292 +290,291 @@
                 // Show quote section
                 document.getElementById("quoteSection").classList.remove("hidden");
 
-                // Quotes Array
-                           const quotes = [
-            "The best way to predict the future is to create it.",
-            "It always seems impossible until it’s done.",
-            "Do not go where the path may lead, go instead where there is no path and leave a trail.",
-            "The only way to do great work is to love what you do.",
-            "Success is not final, failure is not fatal: It is the courage to continue that counts.",
-            "Believe you can and you're halfway there.",
-            "The only limit to our realization of tomorrow is our doubts of today.",
-            "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
-            "You miss 100% of the shots you don't take.",
-            "Success usually comes to those who are too busy to be looking for it.",
-            "Don’t watch the clock; do what it does. Keep going.",
-            "Keep your face always toward the sunshine—and shadows will fall behind you.",
-            "It’s not whether you get knocked down, it’s whether you get up.",
-            "The only way to achieve the impossible is to believe it is possible.",
-            "Everything you’ve ever wanted is on the other side of fear.",
-            "The best revenge is massive success.",
-            "Don’t stop when you’re tired. Stop when you’re done.",
-            "Live as if you were to die tomorrow. Learn as if you were to live forever.",
-            "You are never too old to set another goal or to dream a new dream.",
-            "The only impossible journey is the one you never begin.",
-            "A goal without a plan is just a wish.",
-            "Success doesn't come from what you do occasionally, it comes from what you do consistently.",
-            "Strive not to be a success, but rather to be of value.",
-            "Hardships often prepare ordinary people for an extraordinary destiny.",
-            "The future belongs to those who believe in the beauty of their dreams.",
-            "Don’t wait for opportunity. Create it.",
-            "The harder you work for something, the greater you’ll feel when you achieve it.",
-            "Success is the sum of small efforts, repeated day in and day out.",
-            "Dream big and dare to fail.",
-            "Success is not how high you have climbed, but how you make a positive difference to the world.",
-            "If you can dream it, you can do it.",
-            "Push yourself, because no one else is going to do it for you.",
-            "Your limitation—it’s only your imagination.",
-            "Great things never come from comfort zones.",
-            "Dream it. Wish it. Do it.",
-            "Success doesn’t just find you. You have to go out and get it.",
-            "The harder you work, the luckier you get.",
-            "Don’t limit your challenges. Challenge your limits.",
-            "The key to success is to start before you are ready.",
-            "Opportunities don't happen, you create them.",
-            "Everything you can imagine is real.",
-            "You have to be odd to be number one.",
-            "I find that the harder I work, the more luck I seem to have.",
-            "The way to get started is to quit talking and begin doing.",
-            "Success is how high you bounce when you hit bottom.",
-            "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
-            "You don’t have to be great to start, but you have to start to be great.",
-            "The only place where success comes before work is in the dictionary.",
-            "Success is not the key to happiness. Happiness is the key to success.",
-            "Life is 10% what happens to us and 90% how we react to it.",
-            "Act as if what you do makes a difference. It does.",
-            "The difference between who you are and who you want to be is what you do.",
-            "Success is not in what you have, but who you are.",
-            "Courage doesn’t always roar. Sometimes it’s the quiet voice at the end of the day whispering, ‘I will try again tomorrow.’",
-    "Do what you can, with what you have, where you are.",
-    "Perseverance is not a long race; it is many short races one after another.",
-    "Doubt kills more dreams than failure ever will.",
-    "Hustle until your haters ask if you’re hiring.",
-    "Never give up on a dream just because of the time it will take to accomplish it. The time will pass anyway.",
-    "It’s not about perfect. It’s about effort. And when you bring that effort every single day, transformation happens.",
-    "A river cuts through rock, not because of its power, but because of its persistence.",
-    "Small daily improvements are the key to staggering long-term results.",
-    "You can’t have a million-dollar dream with a minimum-wage work ethic.",
-    "Energy and persistence conquer all things.",
-    "You don’t drown by falling in the water. You drown by staying there.",
-    "Success is stumbling from failure to failure with no loss of enthusiasm.",
-    "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.",
-    "Discipline is choosing between what you want now and what you want most.",
-    "If you want to fly, give up everything that weighs you down.",
-    "Sometimes we’re tested not to show our weaknesses, but to discover our strengths.",
-    "A champion is someone who gets up when they can’t.",
-    "Some people dream of success, while others wake up and work hard at it.",
-    "Don’t downgrade your dream just to fit your reality. Upgrade your conviction to match your destiny.",
-    "Everything will be okay in the end. If it’s not okay, it’s not the end.",
-    "The man on top of the mountain didn’t fall there.",
-    "It's not whether you get knocked down, it's whether you get up.",
-    "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.",
-    "You are what you do, not what you say you’ll do.",
-    "Work until your idols become your rivals.",
-    "Do something today that your future self will thank you for.",
-    "Failure is not the opposite of success; it’s part of success.",
-    "Don’t compare your beginning to someone else’s middle.",
-    "A winner is just a loser who tried one more time.",
-    "Sometimes later becomes never. Do it now.",
-    "The pain you feel today will be the strength you feel tomorrow.",
-    "Difficult roads often lead to beautiful destinations.",
-    "Your speed doesn’t matter. Forward is forward.",
-    "Success is not just about making money. It’s about making a difference.",
-    "The struggle you’re in today is developing the strength you need for tomorrow.",
-    "Don’t wait for the right opportunity. Create it.",
-    "Dreams don’t work unless you do.",
-    "You were born to be real, not perfect.",
-    "If opportunity doesn’t knock, build a door.",
-    "It always seems impossible until it’s done.",
-    "Doubt is a killer. You just have to know who you are and what you stand for.",
-    "Hard work beats talent when talent doesn’t work hard.",
-    "Do one thing every day that scares you.",
-    "Success begins at the end of your comfort zone.",
-    "Chase your dreams but always know the road that will lead you home again.",
-    "Take the risk or lose the chance.",
-    "If you get tired, learn to rest, not to quit.",
-    "If you want to succeed, focus on changing yourself, not others.",
-    "You can’t change the direction of the wind, but you can adjust your sails to always reach your destination.",
-    "Opportunities multiply as they are seized.",
-    "A smooth sea never made a skilled sailor.",
-    "Fear is temporary. Regret is forever.",
-    "Success is liking yourself, liking what you do, and liking how you do it.",
-    "If you are not willing to risk the usual, you will have to settle for the ordinary.",
-    "There are no limits to what you can accomplish, except the limits you place on your own thinking.",
-    "You are not in competition with anyone except the person you were yesterday.",
-    "The best time to plant a tree was 20 years ago. The second best time is now.",
-    "You don’t need to have it all figured out to move forward. Just take the next step.",
-    "Don’t let yesterday take up too much of today.",
-    "Stay afraid, but do it anyway. What’s important is the action.",
-    "Your only limit is you.",
-    "Difficulties in life are intended to make us better, not bitter.",
-    "Someday is not a day of the week.",
-    "Success is a journey, not a destination.",
-    "If you don’t build your dreams, someone will hire you to build theirs.",
-    "Great things are done by a series of small things brought together.",
-    "Champions keep playing until they get it right.",
-    "Pain is temporary. Quitting lasts forever.",
-    "Happiness depends upon ourselves.",
-    "The more you practice, the better you get. The better you get, the more you practice.",
-    "Make each day your masterpiece.",
-    "Focus on the step in front of you, not the whole staircase.",
-    "Your life does not get better by chance. It gets better by change.",
-    "Do what you feel in your heart to be right—for you’ll be criticized anyway.",
-    "Winners are not people who never fail, but people who never quit.",
-    "A year from now, you’ll wish you had started today.",
-    "If you don’t fight for what you want, don’t cry for what you lose.",
-    "Sometimes the smallest step in the right direction ends up being the biggest step of your life.",
-    "No matter how slow you go, you are still lapping everyone on the couch.",
-    "One day, or day one. You decide.",
-    "Be so good they can’t ignore you.",
-    "When you feel like stopping, think about why you started.",
-    "Your potential is endless. Go do what you were created to do.",
-    "Act as if it were impossible to fail.",
-    "The biggest risk is not taking any risk.",
-    "The greatest mistake you can make in life is to be continually fearing you will make one.",
-    "A dream does not become reality through magic; it takes sweat, determination, and hard work.",
-    "Go confidently in the direction of your dreams. Live the life you have imagined.",
-    "Don’t let the fear of losing be greater than the excitement of winning.",
-    "Doubt whomever you want, but never doubt yourself.",
-    "Excuses will always be there for you. Opportunity won’t.",
-    "You didn’t come this far to only come this far.",
-    "Successful people do what unsuccessful people are not willing to do.",
-    "It’s not about having time. It’s about making time.",
-    "A negative mind will never give you a positive life.",
-    "When you can’t control what’s happening, challenge yourself to control how you respond to what’s happening.",
-    "Don’t let the noise of others’ opinions drown out your own inner voice.",
-    "The person who says it cannot be done should not interrupt the person who is doing it.",
-    "Make today so awesome that yesterday gets jealous.",
-    "Don’t just be busy. Be productive.",
-    "Success isn’t given. It’s earned. On the track, on the field, in the gym. With blood, sweat, and the occasional tear.",
-    "If it doesn’t challenge you, it won’t change you.",
-    "Don’t count the days. Make the days count.",
-    "Your dreams don’t have an expiration date. Take a deep breath and try again.",
-    "You can’t go back and change the beginning, but you can start where you are and change the ending.",
-    "Never let success get to your head and never let failure get to your heart.",
-    "You can either experience the pain of discipline or the pain of regret. The choice is yours.",
-    "Your mindset determines your success.",
-    "There is no growth in the comfort zone.",
-    "Some people want it to happen, some wish it would happen, others make it happen.",
-    "A vision without action is merely a dream. Action without vision just passes the time. Vision with action can change the world.",
-    "Effort only fully releases its reward after a person refuses to quit.",
-    "It’s not what we do once in a while that shapes our lives, but what we do consistently.",
-    "When you focus on the good, the good gets better.",
-    "The road to success is always under construction.",
-    "Turn your wounds into wisdom.",
-    "You don’t need a new year to make a change. All you need is a Monday.",
-    "Set a goal so big that you can’t achieve it until you grow into the person who can.",
-    "Don’t tell people your plans. Show them your results.",
-    "Motivation gets you started. Habit keeps you going.",
-    "Work in silence. Let success make the noise.",
-    "Life isn’t about waiting for the storm to pass, it’s about learning to dance in the rain.",
-    "When nothing goes right, go left.",
-    "You were given this life because you are strong enough to live it.",
-    "What you get by achieving your goals is not as important as what you become by achieving your goals.",
-    "Success isn’t measured by money or power or social rank. Success is measured by your discipline and inner peace.",
-    "You can’t have a million-dollar dream with a minimum-wage work ethic.",
-    "You become what you believe.",
-    "Tough times don’t last, but tough people do.",
-    "When life knocks you down, roll over and look at the stars.",
-    "Nothing can dim the light that shines from within.",
-    "The way you speak to yourself matters the most.",
-    "Every day may not be good, but there’s something good in every day.",
-    "Self-discipline is the magic power that makes you virtually unstoppable.",
-    "Today is your opportunity to build the tomorrow you want.",
-    "You were born to stand out, not to fit in.",
-    "Success begins at the end of your comfort zone.",
-    "You will never always be motivated, so you must learn to be disciplined.",
-    "Keep pushing. Your future self is watching.",
-    "A mind that is stretched by a new experience can never go back to its old dimensions.",
-     "You are capable of amazing things, my love. Never doubt yourself.",
-    "No mountain is too high when we climb together.",
-    "You are stronger than you think and more loved than you know.",
-    "Believe in yourself the way I believe in you.",
-    "Every challenge you face is just another step toward greatness.",
-    "You are a warrior, my love. Keep fighting for your dreams!",
-    "I love seeing you shine. Keep going, you are unstoppable!",
-    "Success is written in your stars, and I’ll be there to watch you reach them.",
-    "When you doubt yourself, remember that I believe in you with all my heart.",
-    "The world needs your light—never stop shining.",
-    "You don’t need wings to fly. You just need courage, and you have plenty!",
-    "Dream big, love. I’ll be here to cheer for you every step of the way.",
-    "No storm lasts forever. Keep pushing forward, my love.",
-    "Your strength and passion inspire me every single day.",
-    "You’re not just chasing dreams; you’re making them reality.",
-    "You have the heart of a lion and the soul of a dreamer. Keep going, baby.",
-    "Don’t let fear hold you back. You are capable of conquering anything!",
-    "I believe in you more than words can say.",
-    "Even on your hardest days, remember how far you’ve come.",
-    "You are magic, my love. The world is lucky to have you.",
-    "You are my greatest inspiration. Keep reaching for the stars!",
-    "You have greatness within you, and I can’t wait to see you unleash it.",
-    "Remember: even the smallest steps move you closer to your dreams.",
-    "You were made for greatness, my love. Don’t ever forget that.",
-    "You light up my world, and I know you will light up the world too.",
-    "No matter how hard things get, I’ll always be by your side.",
-    "You are the hero of your own story. Keep writing it with courage!",
-    "You inspire me to be better, and I hope you see the same in yourself.",
-    "The world is waiting for you to share your brilliance. Go and shine!",
-    "Even when you can’t see it, know that you are growing stronger every day.",
-    "You are my sunshine, and I know you will brighten the world too.",
-    "My love, nothing is impossible for someone as strong and determined as you.",
-    "The best version of you is already inside—keep unlocking it!",
-    "You don’t just dream big, you make dreams happen.",
-    "Your heart, your mind, your soul—everything about you is powerful.",
-    "You are not alone. I am here, cheering you on every step of the way.",
-    "You were born to do incredible things. Never doubt that for a second.",
-    "Every moment of struggle is shaping you into the person you’re meant to be.",
-    "I see fire in your eyes, and I know you will conquer anything in your path.",
-    "You have already achieved so much. Imagine what more you can do!",
-    "Take a deep breath, believe in yourself, and go conquer the world.",
-    "Your journey is unique, and it’s leading you exactly where you’re meant to be.",
-    "Never stop believing in yourself, because I never will.",
-    "The world is waiting for someone as fearless as you.",
-    "You are not just capable, you are **extraordinary**.",
-    "Every day, you inspire me with your strength and determination.",
-    "You make my heart proud, my love. Keep going!",
-    "Difficult roads lead to beautiful destinations, and you are heading somewhere amazing.",
-    "I see endless potential in you, and I know you will achieve greatness.",
-    "No matter how tough the road gets, I will walk it with you.",
-    "Your dreams are valid, your efforts are powerful, and your heart is unstoppable.",
-    "You are a masterpiece in progress, my love.",
-    "Your light will never fade as long as you believe in yourself.",
-    "You are limitless, and I will remind you of that every day.",
-    "You don’t just exist, my love—you were born to **thrive**.",
-    "You are writing a story that will inspire the world. Keep going.",
-    "Even in the darkest nights, you are my brightest star.",
-    "Darling, you were meant to do incredible things—don’t stop now!",
-    "Your courage, kindness, and strength make you one of a kind.",
-    "Whenever you doubt yourself, remember: I believe in you endlessly.",
-    "The world doesn’t need more dreamers. It needs **doers** like you.",
-    "Your passion is your superpower. Keep using it to change the world.",
-    "I love you, and I will always support you, no matter what.",
-    "With every step forward, you are proving to the world how unstoppable you are.",
-    "Your journey is just beginning, and it will be **legendary**.",
-    "Don’t be afraid of failure—it’s just proof that you’re trying.",
-    "You are not alone on this journey. I am right beside you, always.",
-    "Everything you desire is within your reach. Keep going!",
-    "The fire in your soul will burn through any obstacle.",
-    "You inspire me with your strength, determination, and heart.",
-    "Success is yours for the taking, my love.",
-    "Keep pushing, keep growing, keep **winning**.",
-    "Every time you rise after falling, you are proving your unstoppable spirit.",
-    "You don’t just make my heart skip a beat—you make me believe in dreams.",
-    "Your love and ambition make you the most beautiful soul I know.",
-    "Never stop believing in yourself, because you are destined for greatness.",
-    "No matter what happens, I will always stand by your side, cheering for you.",
-    "I love you, and I believe in you more than you will ever know.",
-    "You are a queen, my love—wear your crown with pride and confidence.",
-    "Your heart is powerful, your mind is brilliant, and your soul is unstoppable.",
-    "I don’t just love you for who you are—I love you for who you’re becoming.",
-    "Together, we can conquer anything.",
-    "The world is lucky to have you, and so am I.",
-    "Every day, you become a better, stronger, wiser version of yourself.",
-    "You are proof that magic is real.",
-    "You are my biggest inspiration, my greatest love, and my strongest motivation.",
-    "Even when you can’t see it, I see the fire in you. Keep going!",
-    "You are worth every effort, every dream, and every success.",
-    "Love, you are **unstoppable**. Never forget that."
-        ];
+                const quotes = [
+                    "The best way to predict the future is to create it.",
+                    "It always seems impossible until it’s done.",
+                    "Do not go where the path may lead, go instead where there is no path and leave a trail.",
+                    "The only way to do great work is to love what you do.",
+                    "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+                    "Believe you can and you're halfway there.",
+                    "The only limit to our realization of tomorrow is our doubts of today.",
+                    "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+                    "You miss 100% of the shots you don't take.",
+                    "Success usually comes to those who are too busy to be looking for it.",
+                    "Don’t watch the clock; do what it does. Keep going.",
+                    "Keep your face always toward the sunshine—and shadows will fall behind you.",
+                    "It’s not whether you get knocked down, it’s whether you get up.",
+                    "The only way to achieve the impossible is to believe it is possible.",
+                    "Everything you’ve ever wanted is on the other side of fear.",
+                    "The best revenge is massive success.",
+                    "Don’t stop when you’re tired. Stop when you’re done.",
+                    "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+                    "You are never too old to set another goal or to dream a new dream.",
+                    "The only impossible journey is the one you never begin.",
+                    "A goal without a plan is just a wish.",
+                    "Success doesn't come from what you do occasionally, it comes from what you do consistently.",
+                    "Strive not to be a success, but rather to be of value.",
+                    "Hardships often prepare ordinary people for an extraordinary destiny.",
+                    "The future belongs to those who believe in the beauty of their dreams.",
+                    "Don’t wait for opportunity. Create it.",
+                    "The harder you work for something, the greater you’ll feel when you achieve it.",
+                    "Success is the sum of small efforts, repeated day in and day out.",
+                    "Dream big and dare to fail.",
+                    "Success is not how high you have climbed, but how you make a positive difference to the world.",
+                    "If you can dream it, you can do it.",
+                    "Push yourself, because no one else is going to do it for you.",
+                    "Your limitation—it’s only your imagination.",
+                    "Great things never come from comfort zones.",
+                    "Dream it. Wish it. Do it.",
+                    "Success doesn’t just find you. You have to go out and get it.",
+                    "The harder you work, the luckier you get.",
+                    "Don’t limit your challenges. Challenge your limits.",
+                    "The key to success is to start before you are ready.",
+                    "Opportunities don't happen, you create them.",
+                    "Everything you can imagine is real.",
+                    "You have to be odd to be number one.",
+                    "I find that the harder I work, the more luck I seem to have.",
+                    "The way to get started is to quit talking and begin doing.",
+                    "Success is how high you bounce when you hit bottom.",
+                    "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
+                    "You don’t have to be great to start, but you have to start to be great.",
+                    "The only place where success comes before work is in the dictionary.",
+                    "Success is not the key to happiness. Happiness is the key to success.",
+                    "Life is 10% what happens to us and 90% how we react to it.",
+                    "Act as if what you do makes a difference. It does.",
+                    "The difference between who you are and who you want to be is what you do.",
+                    "Success is not in what you have, but who you are.",
+                    "Courage doesn’t always roar. Sometimes it’s the quiet voice at the end of the day whispering, ‘I will try again tomorrow.’",
+                    "Do what you can, with what you have, where you are.",
+                    "Perseverance is not a long race; it is many short races one after another.",
+                    "Doubt kills more dreams than failure ever will.",
+                    "Hustle until your haters ask if you’re hiring.",
+                    "Never give up on a dream just because of the time it will take to accomplish it. The time will pass anyway.",
+                    "It’s not about perfect. It’s about effort. And when you bring that effort every single day, transformation happens.",
+                    "A river cuts through rock, not because of its power, but because of its persistence.",
+                    "Small daily improvements are the key to staggering long-term results.",
+                    "You can’t have a million-dollar dream with a minimum-wage work ethic.",
+                    "Energy and persistence conquer all things.",
+                    "You don’t drown by falling in the water. You drown by staying there.",
+                    "Success is stumbling from failure to failure with no loss of enthusiasm.",
+                    "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.",
+                    "Discipline is choosing between what you want now and what you want most.",
+                    "If you want to fly, give up everything that weighs you down.",
+                    "Sometimes we’re tested not to show our weaknesses, but to discover our strengths.",
+                    "A champion is someone who gets up when they can’t.",
+                    "Some people dream of success, while others wake up and work hard at it.",
+                    "Don’t downgrade your dream just to fit your reality. Upgrade your conviction to match your destiny.",
+                    "Everything will be okay in the end. If it’s not okay, it’s not the end.",
+                    "The man on top of the mountain didn’t fall there.",
+                    "It's not whether you get knocked down, it's whether you get up.",
+                    "When everything seems to be going against you, remember that the airplane takes off against the wind, not with it.",
+                    "You are what you do, not what you say you’ll do.",
+                    "Work until your idols become your rivals.",
+                    "Do something today that your future self will thank you for.",
+                    "Failure is not the opposite of success; it’s part of success.",
+                    "Don’t compare your beginning to someone else’s middle.",
+                    "A winner is just a loser who tried one more time.",
+                    "Sometimes later becomes never. Do it now.",
+                    "The pain you feel today will be the strength you feel tomorrow.",
+                    "Difficult roads often lead to beautiful destinations.",
+                    "Your speed doesn’t matter. Forward is forward.",
+                    "Success is not just about making money. It’s about making a difference.",
+                    "The struggle you’re in today is developing the strength you need for tomorrow.",
+                    "Don’t wait for the right opportunity. Create it.",
+                    "Dreams don’t work unless you do.",
+                    "You were born to be real, not perfect.",
+                    "If opportunity doesn’t knock, build a door.",
+                    "It always seems impossible until it’s done.",
+                    "Doubt is a killer. You just have to know who you are and what you stand for.",
+                    "Hard work beats talent when talent doesn’t work hard.",
+                    "Do one thing every day that scares you.",
+                    "Success begins at the end of your comfort zone.",
+                    "Chase your dreams but always know the road that will lead you home again.",
+                    "Take the risk or lose the chance.",
+                    "If you get tired, learn to rest, not to quit.",
+                    "If you want to succeed, focus on changing yourself, not others.",
+                    "You can’t change the direction of the wind, but you can adjust your sails to always reach your destination.",
+                    "Opportunities multiply as they are seized.",
+                    "A smooth sea never made a skilled sailor.",
+                    "Fear is temporary. Regret is forever.",
+                    "Success is liking yourself, liking what you do, and liking how you do it.",
+                    "If you are not willing to risk the usual, you will have to settle for the ordinary.",
+                    "There are no limits to what you can accomplish, except the limits you place on your own thinking.",
+                    "You are not in competition with anyone except the person you were yesterday.",
+                    "The best time to plant a tree was 20 years ago. The second best time is now.",
+                    "You don’t need to have it all figured out to move forward. Just take the next step.",
+                    "Don’t let yesterday take up too much of today.",
+                    "Stay afraid, but do it anyway. What’s important is the action.",
+                    "Your only limit is you.",
+                    "Difficulties in life are intended to make us better, not bitter.",
+                    "Someday is not a day of the week.",
+                    "Success is a journey, not a destination.",
+                    "If you don’t build your dreams, someone will hire you to build theirs.",
+                    "Great things are done by a series of small things brought together.",
+                    "Champions keep playing until they get it right.",
+                    "Pain is temporary. Quitting lasts forever.",
+                    "Happiness depends upon ourselves.",
+                    "The more you practice, the better you get. The better you get, the more you practice.",
+                    "Make each day your masterpiece.",
+                    "Focus on the step in front of you, not the whole staircase.",
+                    "Your life does not get better by chance. It gets better by change.",
+                    "Do what you feel in your heart to be right—for you’ll be criticized anyway.",
+                    "Winners are not people who never fail, but people who never quit.",
+                    "A year from now, you’ll wish you had started today.",
+                    "If you don’t fight for what you want, don’t cry for what you lose.",
+                    "Sometimes the smallest step in the right direction ends up being the biggest step of your life.",
+                    "No matter how slow you go, you are still lapping everyone on the couch.",
+                    "One day, or day one. You decide.",
+                    "Be so good they can’t ignore you.",
+                    "When you feel like stopping, think about why you started.",
+                    "Your potential is endless. Go do what you were created to do.",
+                    "Act as if it were impossible to fail.",
+                    "The biggest risk is not taking any risk.",
+                    "The greatest mistake you can make in life is to be continually fearing you will make one.",
+                    "A dream does not become reality through magic; it takes sweat, determination, and hard work.",
+                    "Go confidently in the direction of your dreams. Live the life you have imagined.",
+                    "Don’t let the fear of losing be greater than the excitement of winning.",
+                    "Doubt whomever you want, but never doubt yourself.",
+                    "Excuses will always be there for you. Opportunity won’t.",
+                    "You didn’t come this far to only come this far.",
+                    "Successful people do what unsuccessful people are not willing to do.",
+                    "It’s not about having time. It’s about making time.",
+                    "A negative mind will never give you a positive life.",
+                    "When you can’t control what’s happening, challenge yourself to control how you respond to what’s happening.",
+                    "Don’t let the noise of others’ opinions drown out your own inner voice.",
+                    "The person who says it cannot be done should not interrupt the person who is doing it.",
+                    "Make today so awesome that yesterday gets jealous.",
+                    "Don’t just be busy. Be productive.",
+                    "Success isn’t given. It’s earned. On the track, on the field, in the gym. With blood, sweat, and the occasional tear.",
+                    "If it doesn’t challenge you, it won’t change you.",
+                    "Don’t count the days. Make the days count.",
+                    "Your dreams don’t have an expiration date. Take a deep breath and try again.",
+                    "You can’t go back and change the beginning, but you can start where you are and change the ending.",
+                    "Never let success get to your head and never let failure get to your heart.",
+                    "You can either experience the pain of discipline or the pain of regret. The choice is yours.",
+                    "Your mindset determines your success.",
+                    "There is no growth in the comfort zone.",
+                    "Some people want it to happen, some wish it would happen, others make it happen.",
+                    "A vision without action is merely a dream. Action without vision just passes the time. Vision with action can change the world.",
+                    "Effort only fully releases its reward after a person refuses to quit.",
+                    "It’s not what we do once in a while that shapes our lives, but what we do consistently.",
+                    "When you focus on the good, the good gets better.",
+                    "The road to success is always under construction.",
+                    "Turn your wounds into wisdom.",
+                    "You don’t need a new year to make a change. All you need is a Monday.",
+                    "Set a goal so big that you can’t achieve it until you grow into the person who can.",
+                    "Don’t tell people your plans. Show them your results.",
+                    "Motivation gets you started. Habit keeps you going.",
+                    "Work in silence. Let success make the noise.",
+                    "Life isn’t about waiting for the storm to pass, it’s about learning to dance in the rain.",
+                    "When nothing goes right, go left.",
+                    "You were given this life because you are strong enough to live it.",
+                    "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+                    "Success isn’t measured by money or power or social rank. Success is measured by your discipline and inner peace.",
+                    "You can’t have a million-dollar dream with a minimum-wage work ethic.",
+                    "You become what you believe.",
+                    "Tough times don’t last, but tough people do.",
+                    "When life knocks you down, roll over and look at the stars.",
+                    "Nothing can dim the light that shines from within.",
+                    "The way you speak to yourself matters the most.",
+                    "Every day may not be good, but there’s something good in every day.",
+                    "Self-discipline is the magic power that makes you virtually unstoppable.",
+                    "Today is your opportunity to build the tomorrow you want.",
+                    "You were born to stand out, not to fit in.",
+                    "Success begins at the end of your comfort zone.",
+                    "You will never always be motivated, so you must learn to be disciplined.",
+                    "Keep pushing. Your future self is watching.",
+                    "A mind that is stretched by a new experience can never go back to its old dimensions.",
+                    "You are capable of amazing things, my love. Never doubt yourself.",
+                    "No mountain is too high when we climb together.",
+                    "You are stronger than you think and more loved than you know.",
+                    "Believe in yourself the way I believe in you.",
+                    "Every challenge you face is just another step toward greatness.",
+                    "You are a warrior, my love. Keep fighting for your dreams!",
+                    "I love seeing you shine. Keep going, you are unstoppable!",
+                    "Success is written in your stars, and I’ll be there to watch you reach them.",
+                    "When you doubt yourself, remember that I believe in you with all my heart.",
+                    "The world needs your light—never stop shining.",
+                    "You don’t need wings to fly. You just need courage, and you have plenty!",
+                    "Dream big, love. I’ll be here to cheer for you every step of the way.",
+                    "No storm lasts forever. Keep pushing forward, my love.",
+                    "Your strength and passion inspire me every single day.",
+                    "You’re not just chasing dreams; you’re making them reality.",
+                    "You have the heart of a lion and the soul of a dreamer. Keep going, baby.",
+                    "Don’t let fear hold you back. You are capable of conquering anything!",
+                    "I believe in you more than words can say.",
+                    "Even on your hardest days, remember how far you’ve come.",
+                    "You are magic, my love. The world is lucky to have you.",
+                    "You are my greatest inspiration. Keep reaching for the stars!",
+                    "You have greatness within you, and I can’t wait to see you unleash it.",
+                    "Remember: even the smallest steps move you closer to your dreams.",
+                    "You were made for greatness, my love. Don’t ever forget that.",
+                    "You light up my world, and I know you will light up the world too.",
+                    "No matter how hard things get, I’ll always be by your side.",
+                    "You are the hero of your own story. Keep writing it with courage!",
+                    "You inspire me to be better, and I hope you see the same in yourself.",
+                    "The world is waiting for you to share your brilliance. Go and shine!",
+                    "Even when you can’t see it, know that you are growing stronger every day.",
+                    "You are my sunshine, and I know you will brighten the world too.",
+                    "My love, nothing is impossible for someone as strong and determined as you.",
+                    "The best version of you is already inside—keep unlocking it!",
+                    "You don’t just dream big, you make dreams happen.",
+                    "Your heart, your mind, your soul—everything about you is powerful.",
+                    "You are not alone. I am here, cheering you on every step of the way.",
+                    "You were born to do incredible things. Never doubt that for a second.",
+                    "Every moment of struggle is shaping you into the person you’re meant to be.",
+                    "I see fire in your eyes, and I know you will conquer anything in your path.",
+                    "You have already achieved so much. Imagine what more you can do!",
+                    "Take a deep breath, believe in yourself, and go conquer the world.",
+                    "Your journey is unique, and it’s leading you exactly where you’re meant to be.",
+                    "Never stop believing in yourself, because I never will.",
+                    "The world is waiting for someone as fearless as you.",
+                    "You are not just capable, you are **extraordinary**.",
+                    "Every day, you inspire me with your strength and determination.",
+                    "You make my heart proud, my love. Keep going!",
+                    "Difficult roads lead to beautiful destinations, and you are heading somewhere amazing.",
+                    "I see endless potential in you, and I know you will achieve greatness.",
+                    "No matter how tough the road gets, I will walk it with you.",
+                    "Your dreams are valid, your efforts are powerful, and your heart is unstoppable.",
+                    "You are a masterpiece in progress, my love.",
+                    "Your light will never fade as long as you believe in yourself.",
+                    "You are limitless, and I will remind you of that every day.",
+                    "You don’t just exist, my love—you were born to **thrive**.",
+                    "You are writing a story that will inspire the world. Keep going.",
+                    "Even in the darkest nights, you are my brightest star.",
+                    "Darling, you were meant to do incredible things—don’t stop now!",
+                    "Your courage, kindness, and strength make you one of a kind.",
+                    "Whenever you doubt yourself, remember: I believe in you endlessly.",
+                    "The world doesn’t need more dreamers. It needs **doers** like you.",
+                    "Your passion is your superpower. Keep using it to change the world.",
+                    "I love you, and I will always support you, no matter what.",
+                    "With every step forward, you are proving to the world how unstoppable you are.",
+                    "Your journey is just beginning, and it will be **legendary**.",
+                    "Don’t be afraid of failure—it’s just proof that you’re trying.",
+                    "You are not alone on this journey. I am right beside you, always.",
+                    "Everything you desire is within your reach. Keep going!",
+                    "The fire in your soul will burn through any obstacle.",
+                    "You inspire me with your strength, determination, and heart.",
+                    "Success is yours for the taking, my love.",
+                    "Keep pushing, keep growing, keep **winning**.",
+                    "Every time you rise after falling, you are proving your unstoppable spirit.",
+                    "You don’t just make my heart skip a beat—you make me believe in dreams.",
+                    "Your love and ambition make you the most beautiful soul I know.",
+                    "Never stop believing in yourself, because you are destined for greatness.",
+                    "No matter what happens, I will always stand by your side, cheering for you.",
+                    "I love you, and I believe in you more than you will ever know.",
+                    "You are a queen, my love—wear your crown with pride and confidence.",
+                    "Your heart is powerful, your mind is brilliant, and your soul is unstoppable.",
+                    "I don’t just love you for who you are—I love you for who you’re becoming.",
+                    "Together, we can conquer anything.",
+                    "The world is lucky to have you, and so am I.",
+                    "Every day, you become a better, stronger, wiser version of yourself.",
+                    "You are proof that magic is real.",
+                    "You are my biggest inspiration, my greatest love, and my strongest motivation.",
+                    "Even when you can’t see it, I see the fire in you. Keep going!",
+                    "You are worth every effort, every dream, and every success.",
+                    "Love, you are **unstoppable**. Never forget that."
+                ];
 
                 // Select a random quote
                 const randomIndex = Math.floor(Math.random() * quotes.length);
@@ -422,4 +587,5 @@
     </script>
 
 </body>
+
 </html>

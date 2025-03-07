@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Question</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 20px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <button id="loveButton">Do you love me?</button>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById("loveButton").addEventListener("click", function() {
+            setInterval(function() {
+                document.getElementById("output").innerHTML += "hubbik ";
+            }, 100);
+        });
+    </script>
+</body>
+</html>

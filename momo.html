@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Course Game</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; margin: 0; overflow: hidden; background-color: white; }
+        #game-container { position: relative; width: 100vw; height: 100vh; border: 2px solid black; }
+        #character { position: absolute; right: 0; top: 50%; width: 80px; height: 80px; background-image: url('character.jpg'); background-size: cover; transform: translateY(-50%); }
+        #controls { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); text-align: center; }
+        #track { position: absolute; bottom: 40%; left: 0; width: 100%; height: 20px; background: gray; }
+    </style>
+</head>
+<body>
+    <h1>Secret Course Game</h1>
+    <p>Enter secrets to move the character!</p>
+    <div id="game-container">
+        <div id="track"></div>
+        <div id="character"></div>
+    </div>
+    <div id="controls">
+        <input type="text" id="secret-input" placeholder="Enter a secret">
+        <button onclick="checkSecret()">Submit</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const secrets = ["hubbik", "za3totaty", "koala", "tamochatino", "momo"];
+        let progress = 0;
+        const stepSize = window.innerWidth / 5;
+
+        function checkSecret() {
+            let input = document.getElementById("secret-input").value.toLowerCase().trim();
+            if (secrets.includes(input)) {
+                progress++;
+                document.getElementById("character").style.right = (progress * stepSize) + "px";
+                document.getElementById("message").textContent = `Good! ${5 - progress} steps left.`;
+            } else {
+                document.getElementById("message").textContent = "Wrong secret, try again!";
+            }
+            document.getElementById("secret-input").value = "";
+            
+            if (progress >= 5) {
+                document.getElementById("message").textContent = "Congratulations! You reached the end!";
+            }
+        }
+    </script>
+</body>
+</html>

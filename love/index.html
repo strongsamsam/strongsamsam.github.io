@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Dose of You 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to top right, #ffe0ec, #ffffff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+      transition: background 0.5s, color 0.5s;
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      color: #ff4b91;
+      font-size: 2.5rem;
+    }
+    .compliment-box {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 155, 185, 0.3);
+      padding: 30px;
+      margin: 20px;
+      max-width: 500px;
+      font-size: 1.4rem;
+      color: #444;
+      transition: all 0.3s ease;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      background: #ff7eb9;
+      color: white;
+      cursor: pointer;
+      margin: 10px;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #ff4b91;
+    }
+    .heart {
+      font-size: 2rem;
+      animation: beat 1s infinite alternate;
+    }
+    .night {
+      background: linear-gradient(to top right, #1a1a2e, #16213e);
+      color: #f5f5f5;
+    }
+    .night .compliment-box {
+      background: #222;
+      color: #eee;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    @keyframes beat {
+      to {
+        transform: scale(1.2);
+        color: #ff4b91;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Hi, my sunshine ☀️!</h1>
+  <div class="compliment-box" id="compliment">
+    Here's your dose of love today: <br><br>
+    <span id="message">You make everything brighter. 💖</span>
+  </div>
+  <button onclick="newMessage()">💌 Give me more love</button>
+
+  <button onclick="toggleNightMode()">🌙 Night Mode</button>
+  
+
+  <script>
+   const messages = [
+    "You make everything brighter. 💖",
+    "If I had a flower for every time I thought of you… I'd have a whole garden. 🌸",
+    "You're not just beautiful. You're poetry in motion. ✨",
+    "Every day with you is my favorite. 🥰",
+    "You're the reason I smile like an idiot. 😍",
+    "You're my favorite notification. 📱❤️",
+    "You glow differently when you're loved right — and I hope that's me. 🌟",
+    "Just hearing your voice makes my day better. 🎶",
+    "You’re my calm in every storm. ⛅",
+    "You are magic. Pure and simple. 🪄",
+    "Being with you is like a dream I never want to wake up from. 💭",
+    "You have the kindest soul, and the warmest heart. 🧸",
+    "I’d choose you over and over again. Always. ♾️",
+    "You’re everything I ever wanted and more. 💞",
+    "Your laugh is my favorite melody. 🎵",
+    "Even the stars envy the way you shine. ✨",
+    "You're my peace and my passion. 🔥",
+    "There’s no one else I’d rather annoy for the rest of my life. 😉",
+    "With you, every moment feels magical. 🪄",
+    "You're the best part of my everyday. 💝",
+    "Your smile is my favorite sunrise. 🌅",
+    "Loving you is the easiest thing I’ve ever done. 💌",
+    "You're my today and all of my tomorrows. 🕊️",
+    "You're my person. Always have been, always will be. ❤️",
+    "You’re my safe place. 🏡",
+    "You’re the sparkle in my eyes. ✨",
+    "The world is better with you in it. 🌍💫",
+    "You light up every room you enter. 💡",
+    "Your hugs are my home. 🤗",
+    "You're my definition of perfect. 🔐",
+    "You are the reason love songs exist. 🎧",
+    "No one compares to you. 💎",
+    "You're the kind of person people write novels about. 📖",
+    "Your love is my greatest adventure. 🌍",
+    "You’re a masterpiece in a world of copies. 🎨",
+    "You’re more than enough — you’re everything. 💫",
+    "Your heart is my favorite place to be. ❤️‍🔥",
+    "Even silence with you feels special. 🤍",
+    "You’re my sunshine on a cloudy day. ☁️☀️",
+    "You're the peanut butter to my jelly. 🥜🍓",
+    "Forever isn't long enough with you. ⏳💘",
+    "You make ordinary moments feel extraordinary. ✨",
+    "You're my forever favorite. 🧡",
+    "You're the song in my heart. 🎼",
+    "You’re the miracle I didn’t know I needed. 🌠",
+    "I’m thankful for you every single day. 🙏❤️",
+    "You’re my reason to believe in love. 💍",
+    "You make me a better version of myself. 🌱",
+    "You're the wish I never knew I made. 🌠",
+    "Falling for you was the best decision I ever made. 💕"
+  ];
+
+    function newMessage() {
+      const randIndex = Math.floor(Math.random() * messages.length);
+      document.getElementById("message").textContent = messages[randIndex];
+    }
+
+   
+
+    function toggleNightMode() {
+      document.body.classList.toggle('night');
+    }
+  </script>
+</body>
+</html>

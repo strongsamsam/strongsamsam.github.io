@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poulet with Two Baydat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #87CEEB, #98FB98);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+        }
+
+        .animation-container {
+            width: 600px;
+            height: 400px;
+            position: relative;
+            border: 5px solid #8B4513;
+            border-radius: 20px;
+            background: linear-gradient(to bottom, #FFFACD, #FFE4B5);
+            overflow: hidden;
+        }
+
+        /* Grass */
+        .grass {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 80px;
+            background: #32CD32;
+        }
+
+        /* Fence */
+        .fence {
+            position: absolute;
+            bottom: 80px;
+            width: 100%;
+            height: 60px;
+            background: #D2691E;
+            display: flex;
+            justify-content: space-around;
+            border-top: 5px solid #8B4513;
+        }
+
+        .fence-post {
+            width: 15px;
+            height: 60px;
+            background: #8B4513;
+            position: relative;
+        }
+
+        .fence-post:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -5px;
+            width: 25px;
+            height: 10px;
+            background: #8B4513;
+            border-radius: 5px;
+        }
+
+        /* Poulet - The Chicken */
+        .poulet {
+            position: absolute;
+            bottom: 100px;
+            left: 50px;
+            width: 120px;
+            height: 120px;
+            animation: walkIn 3s ease-in-out forwards;
+            transform-origin: center bottom;
+        }
+
+        .poulet-body {
+            position: absolute;
+            width: 80px;
+            height: 60px;
+            background: #FFD700;
+            border-radius: 50%;
+            bottom: 0;
+            left: 20px;
+        }
+
+        .poulet-head {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #FFD700;
+            border-radius: 50%;
+            top: -20px;
+            left: 60px;
+        }
+
+        .poulet-eye {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #000;
+            border-radius: 50%;
+            top: 10px;
+            left: 25px;
+        }
+
+        .poulet-beak {
+            position: absolute;
+            width: 15px;
+            height: 10px;
+            background: #FF8C00;
+            border-radius: 50%;
+            top: 20px;
+            left: 10px;
+            transform: rotate(-30deg);
+        }
+
+        .poulet-comb {
+            position: absolute;
+            width: 20px;
+            height: 15px;
+            background: #FF4500;
+            border-radius: 50% 50% 0 0;
+            top: -15px;
+            left: 10px;
+        }
+
+        .poulet-wing {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            background: #FFA500;
+            border-radius: 50%;
+            bottom: 20px;
+            left: 50px;
+            transform-origin: center center;
+            animation: wingFlap 2s infinite 3s;
+        }
+
+        .poulet-leg {
+            position: absolute;
+            width: 6px;
+            height: 25px;
+            background: #FF8C00;
+            bottom: -25px;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .leg-left {
+            left: 40px;
+            animation: legWalk 0.3s infinite alternate;
+        }
+
+        .leg-right {
+            left: 60px;
+            animation: legWalk 0.3s infinite alternate-reverse;
+        }
+
+        /* Eggs (Baydat) */
+        .baydat-container {
+            position: absolute;
+            bottom: 90px;
+            left: 30px;
+            width: 80px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .egg {
+            position: absolute;
+            width: 35px;
+            height: 45px;
+            background: #FFF8DC;
+            border-radius: 50%;
+            bottom: -50px;
+            animation: eggAppear 1s forwards 3s;
+            border: 2px solid #DEB887;
+        }
+
+        .egg-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .egg-eye {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #000;
+            border-radius: 50%;
+            top: 15px;
+        }
+
+        .egg-blush {
+            position: absolute;
+            width: 8px;
+            height: 4px;
+            background: #FFB6C1;
+            border-radius: 50%;
+            top: 25px;
+        }
+
+        .egg-left {
+            left: 5px;
+            animation-delay: 3.2s !important;
+        }
+
+        .egg-right {
+            right: 5px;
+            animation-delay: 3.4s !important;
+        }
+
+        .egg1 {
+            left: 5px;
+            animation-delay: 3s;
+        }
+
+        .egg2 {
+            right: 5px;
+            animation-delay: 3.1s;
+        }
+
+        .egg1 .egg-eye { left: 10px; }
+        .egg1 .egg-blush { left: 8px; }
+        .egg2 .egg-eye { right: 10px; }
+        .egg2 .egg-blush { right: 8px; }
+
+        /* Speech Bubble */
+        .speech-bubble {
+            position: absolute;
+            top: 50px;
+            left: 180px;
+            background: white;
+            padding: 15px;
+            border-radius: 20px;
+            border: 3px solid #333;
+            opacity: 0;
+            animation: bubbleAppear 1s forwards 4s;
+            font-size: 24px;
+            font-weight: bold;
+            color: #8B4513;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 30px;
+            border-width: 20px 20px 0;
+            border-style: solid;
+            border-color: white transparent;
+        }
+
+        .speech-bubble:before {
+            content: '';
+            position: absolute;
+            bottom: -26px;
+            left: 27px;
+            border-width: 23px 23px 0;
+            border-style: solid;
+            border-color: #333 transparent;
+        }
+
+        /* Hearts */
+        .heart {
+            position: absolute;
+            color: #FF69B4;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatHearts 2s forwards 5s;
+        }
+
+        .heart1 { left: 40px; bottom: 120px; animation-delay: 5s; }
+        .heart2 { left: 70px; bottom: 140px; animation-delay: 5.3s; }
+        .heart3 { right: 40px; bottom: 130px; animation-delay: 5.6s; }
+
+        /* Sun */
+        .sun {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #FFD700;
+            border-radius: 50%;
+            animation: sunGlow 3s infinite alternate;
+        }
+
+        /* Animations */
+        @keyframes walkIn {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes wingFlap {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(20deg); }
+        }
+
+        @keyframes legWalk {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        @keyframes eggAppear {
+            0% { bottom: -50px; }
+            100% { bottom: 0; }
+        }
+
+        @keyframes bubbleAppear {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatHearts {
+            0% { opacity: 0; transform: translateY(0); }
+            20% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-50px); }
+        }
+
+        @keyframes sunGlow {
+            0% { box-shadow: 0 0 20px #FFD700; }
+            100% { box-shadow: 0 0 40px #FFA500; }
+        }
+
+        /* Title */
+        .title {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 28px;
+            color: #8B4513;
+            text-shadow: 2px 2px 0 #FFF;
+            opacity: 0;
+            animation: fadeIn 2s forwards 6s;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Instructions */
+        .instructions {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            color: #8B4513;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="animation-container">
+        <!-- Sun -->
+        <div class="sun"></div>
+        
+        <!-- Fence -->
+        <div class="fence">
+            <div class="fence-post"></div>
+            <div class="fence-post"></div>
+            <div class="fence-post"></div>
+            <div class="fence-post"></div>
+            <div class="fence-post"></div>
+            <div class="fence-post"></div>
+        </div>
+        
+        <!-- Grass -->
+        <div class="grass"></div>
+        
+        <!-- Poulet -->
+        <div class="poulet">
+            <div class="poulet-body"></div>
+            <div class="poulet-head">
+                <div class="poulet-eye"></div>
+                <div class="poulet-beak"></div>
+                <div class="poulet-comb"></div>
+            </div>
+            <div class="poulet-wing"></div>
+            <div class="poulet-leg leg-left"></div>
+            <div class="poulet-leg leg-right"></div>
+            
+            <!-- Eggs Container -->
+            <div class="baydat-container">
+                <div class="egg egg1">
+                    <div class="egg-face">
+                        <div class="egg-eye egg-left"></div>
+                        <div class="egg-blush egg-left"></div>
+                    </div>
+                </div>
+                <div class="egg egg2">
+                    <div class="egg-face">
+                        <div class="egg-eye egg-right"></div>
+                        <div class="egg-blush egg-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Speech Bubble -->
+        <div class="speech-bubble">I have two baydat!</div>
+        
+        <!-- Hearts -->
+        <div class="heart heart1">❤️</div>
+        <div class="heart heart2">❤️</div>
+        <div class="heart heart3">❤️</div>
+        
+        <!-- Title -->
+        <div class="title">Poulet's Precious Baydat</div>
+        
+        <!-- Instructions -->
+        <div class="instructions">Refresh page to watch animation again</div>
+    </div>
+
+    <script>
+        // Add click interaction
+        document.querySelector('.poulet').addEventListener('click', function() {
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = 'walkIn 3s ease-in-out forwards';
+            }, 10);
+            
+            // Trigger eggs animation again
+            document.querySelectorAll('.egg').forEach(egg => {
+                egg.style.animation = 'none';
+                setTimeout(() => {
+                    egg.style.animation = 'eggAppear 1s forwards';
+                }, 10);
+            });
+        });
+    </script>
+</body>
+</html>
